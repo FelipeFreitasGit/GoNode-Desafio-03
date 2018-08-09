@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -24,5 +25,17 @@ const UserSchema = new mongoose.Schema({
   },
   friends: [{ type: mongoose.Schema.ObjectId, ref: 'User'}],
 });
+
+UserSchema.pre('save', async function hashPassword(next) {
+  if (!this.isModified('password')) next();
+
+  this.password = await bcrypt.hash(this.password, 8);
+});
+
+UserSchema.methods = {
+  compareHash(password) {
+    return bcrypt.compare(password, this.password);
+  },
+};
 
 mongoose.model('User', UserSchema);
