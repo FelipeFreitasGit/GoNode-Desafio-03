@@ -11,4 +11,7 @@ routes.post('/signin', controllers.authController.signin);
 
 routes.use(middleware);
 
+routes.post('/posts', controllers.postsController.create);
+routes.delete('/posts/:id', controllers.postsController.destroy);
+
 module.exports = routes;
