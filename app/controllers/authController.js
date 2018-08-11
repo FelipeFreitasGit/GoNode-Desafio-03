@@ -16,6 +16,7 @@ module.exports = {
       res.json({
         message: 'User created success',
         user,
+        token: user.gerenateToken(),
       });
 
     } catch (err) {
@@ -25,7 +26,7 @@ module.exports = {
 
   async signin(req, res, next) {
     try {
-      const { name, email, password } = req.body;
+      const { email, password } = req.body;
 
       const user = await User.findOne({ email });
 
@@ -38,8 +39,9 @@ module.exports = {
       }
 
       return res.json({
-        message: `Welcome ${name}`,
+        message: `Welcome ${email}`,
         user,
+        token: user.gerenateToken(),
       });
     } catch (err) {
       return next(err);
