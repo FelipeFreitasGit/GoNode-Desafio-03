@@ -14,4 +14,6 @@ routes.use(middleware);
 routes.post('/posts', controllers.postsController.create);
 routes.delete('/posts/:id', controllers.postsController.destroy);
 
+routes.post('/friends/:id', controllers.friendsController.create);
+
 module.exports = routes;
