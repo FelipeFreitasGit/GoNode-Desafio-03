@@ -44,6 +44,12 @@ UserSchema.methods = {
       expiresIn: 86400,
     });
   },
+
+  findIdFriend(id) {
+    return friends.every(item => {
+      return id === item;
+    });
+  },
 };
 
 mongoose.model('User', UserSchema);
